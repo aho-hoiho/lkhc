@@ -1,0 +1,25 @@
+{% block content %}
+      <table class="ui celled collapsing table">
+	<thead>
+	  <tr>
+	    {% for key in config_keys %}
+	    <th>{{key}}</th>
+	    {% endfor %}
+	  </tr>
+	</thead>
+	<tbody>
+	  {% for config in configs %}
+	  <tr>
+	    {% for key in config_keys %}
+	    <td data-label={{key}}>{{config[key]}}</td>
+	    {% endfor %}
+	  </tr>
+	  {% endfor %}
+	</tbody>
+      </table>
+
+<script>
+  $('table').tablesort()
+</script>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% block content %}
+<table class="ui sortable celled collapsing table">
+  <thead>
+    <tr>
+      {% for key in event_keys %}
+      <th>{{key}}</th>
+      {% endfor %}
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for event in events %}
+    <tr>
+      {% for key in event_keys %}
+      {% if key == "id" %}
+        <td data-label={{key}} data-sort-value={{event['sort']}}>{{event[key]}}</td>
+      {% elif key == "segment_id" %}
+        <td data-label={{key}} data-sort-value={{event['sort']}}>
+	  <a href="{{event[key+'_url']}}" target="_blank" rel="noopener noreferrer">{{event[key]}}</a>
+	</td>
+      {% else %}
+        <td data-label={{key}}>{{event[key]}}</td>
+      {% endif %}
+      {% endfor %}
+      <td>
+	<form method="post">
+	  <input type="hidden" name="action" value="delete event"></input>
+	  <input type="hidden" name="id" value="{{event['id']}}"></input>
+	  <input type="hidden" name="seq" value="{{event['seq']}}"></input>
+	  <button class="ui icon compact small button" type="submit">
+	    <i class="trash alternate outline icon" style="visibility: visible;"></i>
+	  </button>
+	</form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<hr/>
+<form class="ui form" method="post">
+  {% for key in event_keys %}
+  <div class="field">
+    <label>{{key}}</label>
+    <input type="text" name={{key}} placeholder={{key}}>
+  </div>
+  {% endfor %}
+  <input type="hidden" name="action" value="add event">
+  <button class="ui button" type="submit">Add Event</button>
+</form>
+
+<script>
+  $('table').tablesort()
+  </script>
+
+{% endblock %}

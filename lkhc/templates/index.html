@@ -1,0 +1,21 @@
+{% extends 'head.html' %}
+
+{% block body %} 
+<body>
+    <div class="ui text container">
+      <h1 class="ui header">
+	{% block title %} Low Key Hill Climb 2023 {% endblock %}
+      </h1>
+      <h3>Please give LKHC permission to access your Strava activities.</h3>
+      <p>Click the button below or paste the following URL into your browser:
+	</br>
+	<span style="word-break:break-all;white-space:normal;"><code>https://www.strava.com/oauth/authorize?client_id={{client_id}}&redirect_uri={{redirect_url}}&response_type=code&scope=activity%3Aread&state=lkhc</code></span>
+      </p>
+
+      <a href="https://www.strava.com/oauth/authorize?client_id={{client_id}}&redirect_uri={{redirect_url}}&response_type=code&scope=activity%3Aread&state=lkhc" class="ui large primary button">Link Strava<i class="right arrow icon"></i></a>
+    </div>
+
+
+</body>
+
+{% endblock %}

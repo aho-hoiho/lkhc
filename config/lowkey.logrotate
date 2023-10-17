@@ -1,0 +1,16 @@
+/var/log/lowkey/lowkey.log {
+  rotate 90
+  daily
+  compress
+  delaycompress
+  missingok
+  notifempty
+
+  create 644 ubuntu www-data
+
+  sharedscripts
+  postrotate
+     systemctl restart lowkey
+  endscript
+
+}

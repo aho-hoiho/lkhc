@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="ui middle aligned center aligned grid">
+  <div class="login-column">
+    <h2 class="ui teal header">
+      <div>
+	{% block title %} LKHC Admin {% endblock %}
+      </div>
+    </h2>
+    <h3 class="ui header">
+      <div>
+        Please log in.
+      </div>
+    </h3>
+    <form class="ui large form" method="post">
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+	    <i class="user icon"></i>
+	    <input type="text" name="username" placeholder="Username">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+	    <i class="lock icon"></i>
+	    <input type="password" name="password" placeholder="Password">
+          </div>
+        </div>
+        <button class="ui fluid large teal submit button" type="submit">Login</button>
+      </div>
+      <input type="hidden" name="login" value=true>
+      <div class="ui error message"></div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

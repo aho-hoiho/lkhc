@@ -1,0 +1,27 @@
+{% extends 'head.html' %}
+
+{% block body %}
+<body>
+  <div class="ui fixed inverted menu">
+    <div class="ui wide container">
+      <a href="{{ url_for('main.index') }}" class="header item">
+        <img class="logo" src="/logo.png">
+        Low Key Hill Climb
+      </a>
+      <div class="right menu">
+	<div class="item">
+	  IP:{{remote_addr}}
+	</div>
+	<div class="item">
+	  {{now}}
+	</div>
+      </div>
+    </div>
+  </div>
+      
+  <div class="ui main wide container">
+    {% block content %} {% endblock %}
+  </div>
+</body>
+
+{% endblock %}

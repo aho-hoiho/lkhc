@@ -1,0 +1,14 @@
+[Unit]
+Description=uWSGI instance to serve Low Key Hill Climb
+After=network.target
+After=mysql.service
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/lowkey
+Environment="PATH=/home/ubuntu/lowkey/.venv/bin"
+ExecStart=/home/ubuntu/lowkey/.venv/bin/uwsgi --ini config/lowkey.ini
+
+[Install]
+WantedBy=multi-user.target

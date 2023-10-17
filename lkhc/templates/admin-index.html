@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="ui basic clearing segment">
+  <h2 class="ui left floated header">
+    {% block title %} LKHC Admin {% endblock %}
+  </h2>
+  <h3 class="ui right floated header">
+    <form method="post">
+      <input type="hidden" name="logout" value="logout"></input>
+      <button class="ui button" type="submit">Logout</button>
+    </form>
+  </h3>
+</div>
+
+{% if message_hdr %}
+<div class="ui message">
+  <div class="header">
+    {{message_hdr}}
+  </div>
+  {% for line in message_body %}
+  <p>{{line}}</p>
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="ui two column relaxed centered internally celled grid">
+  <div class="column">
+  <div class="ui four statistics">
+    <div class="statistic">
+      <div class="value">
+	{{results|length}} / {{events|length}}
+      </div>
+      <div class="label">
+	Events
+      </div>
+    </div>
+    <div class="statistic">
+      <div class="value">
+	{{users|length}}
+      </div>
+      <div class="label">
+	Users
+      </div>
+    </div>
+    <div class="statistic">
+      <div class="value">
+	{{activities|length}}
+      </div>
+      <div class="label">
+	Pending Activities
+      </div>
+    </div>
+    <div class="statistic">
+      <div class="value">
+	{{result_count}}
+      </div>
+      <div class="label">
+	Results
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="ui basic segment">
+      <h3 class="ui dividing header">
+	Analyze
+      </h3>
+      <p>Enter an Athlete ID and Activity ID to analyze a single activity for relevant
+        segment efforts.  Leave blank to analyze multiple activities.</p>
+      <form class="ui form"  method="post">
+	<div class="two fields">
+	  <div class="field">
+	    <label>Athlete ID</label>
+	    <input type="text" name="athleteid" placeholder="Athlete ID"></input>
+	  </div>
+	  <div class="field">
+	    <label>Activity ID</label>
+	    <input type="text" name="activityid" placeholder="Activity ID"></input>
+	  </div>
+	</div>
+	<div class="two fields">
+	  <div class="field">
+	    <div class="ui checked checkbox">
+	      <input type="checkbox" name="debug" checked="">
+	      <label>Debug: don't delete activity</label>
+	    </div>
+	  </div>
+	  <input type="hidden" name="action" value="analyze"></input>
+	  <button class="tiny ui button" type="submit">Analyze</button>
+	</div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="ui top attached tabular menu">
+  <a class="item" data-tab="events">Events</a>
+  <a class="item" data-tab="athletes">Athletes</a>
+  <a class="item active" data-tab="activities">Activities</a>
+  {% for evt in result_events %}
+  <a class="item" data-tab="results-{{evt}}">Results {{evt}} ({{results[evt]|length}})</a>
+  {% endfor %}
+  <a class="item" data-tab="config">Configuration</a>
+</div>
+<div class="ui bottom attached tab segment" data-tab="events">
+  {% include 'admin-events.html' %}
+</div>
+<div class="ui bottom attached tab segment" data-tab="athletes">
+  {% include 'admin-athletes.html' %}
+</div>
+<div class="ui bottom attached tab segment active" data-tab="activities">
+  {% include 'admin-activities.html' %}
+</div>
+{% for evt in result_events %}
+  {% with rs=results[evt], evt=evt %}
+  <div class="ui bottom attached tab segment" data-tab="results-{{evt}}">
+    {% include 'admin-results.html' %}
+  </div>
+  {% endwith %}
+{% endfor %}
+<div class="ui bottom attached tab segment" data-tab="config">
+  {% include 'admin-configs.html' %}
+</div>
+
+
+<script>
+  $('.menu .item')
+    .tab()
+  ;
+</script>
+{% endblock %}

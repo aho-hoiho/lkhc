@@ -1,0 +1,25 @@
+{% block content %}
+      <table class="ui celled collapsing table">
+	<thead>
+	  <tr>
+	    {% for key in user_keys %}
+	    <th>{{key}}</th>
+	    {% endfor %}
+	  </tr>
+	</thead>
+	<tbody>
+	  {% for user in users %}
+	  <tr>
+	    {% for key in user_keys %}
+	    <td data-label={{key}}>{{user[key]}}</td>
+	    {% endfor %}
+	  </tr>
+	  {% endfor %}
+	</tbody>
+      </table>
+
+<script>
+  $('table').tablesort()
+</script>
+
+{% endblock %}

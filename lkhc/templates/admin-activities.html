@@ -1,0 +1,32 @@
+{% block content %}
+      <table class="ui celled collapsing table">
+	<thead>
+	  <tr>
+	    {% for key in activity_keys %}
+	    <th>{{key}}</th>
+	    {% endfor %}
+	  </tr>
+	</thead>
+	<tbody>
+	  {% for activity in activities %}
+	  <tr>
+	    {% for key in activity_keys %}
+   	      {% if key in activity_urls %}
+	        <td data-label={{key}}>
+	          <a href="{{activity[key+'_url']}}" target="_blank" rel="noopener noreferrer">{{activity[key]}}</a>
+		</td>
+	      {% else %}
+  	        <td data-label={{key}}>{{activity[key]}}</td>
+	      {% endif %}
+
+	    {% endfor %}
+	  </tr>
+	  {% endfor %}
+	</tbody>
+      </table>
+
+<script>
+  $('table').tablesort()
+</script>
+
+{% endblock %}

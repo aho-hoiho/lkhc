@@ -1,0 +1,56 @@
+{% block content %}
+
+<div class="ui aligned grid">
+  <div class="center aligned four column row">
+    <div class="column"> </div>
+    <div class="column">
+      <form class="ui form" method="post">
+	<input type="hidden" name="action" value="export results">
+	<input type="hidden" name="type" value="all">
+	<input type="hidden" name="event" value={{evt}}>
+	<button class="ui button" type="submit">Export Results (all)</button>
+      </form>
+    </div>
+
+    <div class="column">
+      <form class="ui form" method="post">
+	<input type="hidden" name="action" value="export results">
+	<input type="hidden" name="type" value="unique">
+	<input type="hidden" name="event" value={{evt}}>
+	<button class="ui button" type="submit">Export Results (unique)</button>
+      </form>
+    </div>
+    <div class="column"></div>
+  </div>
+</div>
+
+<table class="ui celled collapsing table">
+  <thead>
+    <tr>
+      {% for key in result_keys %}
+      <th>{{key}}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for result in rs %}
+    <tr>
+      {% for key in result_keys %}
+      {% if key in result_urls %}
+      <td data-label={{key}}>
+	<a href="{{result[key+'_url']}}" target="_blank" rel="noopener noreferrer">{{result[key]}}</a>
+      </td>
+      {% else %}
+      <td data-label={{key}}>{{result[key]}}</td>
+      {% endif %}
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+  $('table').tablesort()
+</script>
+
+{% endblock %}

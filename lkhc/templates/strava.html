@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+   <span class="title"><h1>{% block title %} LKHC Strava Registration{% endblock %}</h1></span>
+
+{% if user %}
+   <h2>Registration Complete</h2>
+   <p>You can close this window.</p>
+   <hr/>
+   <h3>debug</h3>
+   <p><b>code</b>: <code>{{code}}</code></p>
+   <p><b>scope</b>: <code>{{scope}}</code></p>
+   <p><b>user</b>: <code>{{user.athlete_id}}</code></p>
+{% else %}
+   <h2>Registration Failed</h2>
+   <p>Please try again.</p>
+   <hr/>
+   <h3>debug</h3>
+   <p><b>code</b>: <code>{{code}}</code></p>
+   <p><b>scope</b>: <code>{{scope}}</code></p>
+   <p><b>message</b>: <code>{{message}}</code></p>
+   <p><b>errors</b>: <code>{{errors}}</code></p>
+{% endif %}
+
+{% endblock %}
